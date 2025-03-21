@@ -1,5 +1,6 @@
 package com.example.cbdatabase.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class URL {
     private String name;
     private String url;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "accountId")
     private Account account;

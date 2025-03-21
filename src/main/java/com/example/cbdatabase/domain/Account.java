@@ -21,6 +21,6 @@ public class Account {
     private String accountName;
     private String accountPassword;
 
-    @OneToMany(mappedBy = "accountId")
+    @OneToMany(mappedBy = "account")
     private List<URL> urls = new ArrayList<>();
 }
