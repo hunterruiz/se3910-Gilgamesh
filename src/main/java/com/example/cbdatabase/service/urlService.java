@@ -1,9 +1,7 @@
 package com.example.cbdatabase.service;
 
-import com.example.cbdatabase.domain.URL;
-import com.example.cbdatabase.domain.Account;
-import com.example.cbdatabase.repository.AccountRepository;
-import com.example.cbdatabase.repository.urlRepository;
+import com.example.cbdatabase.domain.*;
+import com.example.cbdatabase.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +27,12 @@ public class urlService {
     }
 
     @GetMapping("/url")
-    public List<URL> findAll(){
-        return urlRepository.findAll();
+    public List<URL> findAll(String userId){
+        Account account = accountRepository.findByUserId(userId).orElse(null);
+        if (account != null){
+            return urlRepository.findAllByAccount(account);
+        }
+
+        return null;
     }
 }

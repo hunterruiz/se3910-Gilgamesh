@@ -25,8 +25,11 @@ public class urlController {
         return new ResponseEntity<>(urlService.create(url, userId), HttpStatus.CREATED);
     }
 
+    @CrossOrigin
     @GetMapping("/urls")
-    public ResponseEntity<?> findAll(){
-        return new ResponseEntity<>(urlService.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> findAllUrls(){
+        String userId = "test";
+        System.out.println("FindAllUrls By Name : " + userId);
+        return new ResponseEntity<>(urlService.findAll(userId), HttpStatus.OK);
     }
 }
