@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 function Dashboard() {
+  // GET statement that retrieves the html file for the URL imputed
   function useFetch(event) {
     event.preventDefault();
 
@@ -18,9 +19,11 @@ function Dashboard() {
       .catch((error) => console.error("Error: ", error));
   }
 
+  // use state to hold state of the url
   const [url, setUrl] = useState("");
 
   return (
+    // html elements that are returned in the browser
     <>
       <div>
         <form onSubmit={useFetch}>
