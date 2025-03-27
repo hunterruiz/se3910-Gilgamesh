@@ -1,5 +1,5 @@
-import Header from "./components/header.js";
-import Dashboard from "./pages/Dashboard.js";
+import Header from "./components/header.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 import "./App.css";
 
 function App() {
