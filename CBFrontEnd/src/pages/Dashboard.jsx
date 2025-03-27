@@ -29,6 +29,7 @@ function Dashboard() {
         <form onSubmit={useFetch}>
           <label htmlFor="url-search">Url Search</label>
           <input
+            autocomplete="off"
             id="url-search"
             placeholder="commercebank.com"
             onChange={(e) => setUrl(e.target.value)}></input>
