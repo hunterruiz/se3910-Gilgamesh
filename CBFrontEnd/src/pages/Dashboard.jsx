@@ -1,5 +1,5 @@
+import AnalysisTable from "../components/dashboard/AnalysisTable";
 import { useState } from "react";
-import { useEffect } from "react";
 
 // can use this free api for testing https://jsonplaceholder.typicode.com/todos
 // place url into URL search on browser
@@ -58,6 +58,9 @@ function Dashboard() {
             onChange={(e) => setUrl(e.target.value)}></input>
           <button type="submit">Fetch</button>
         </form>
+
+        {/* TO DO pass httpsReq data to AnalysisTable */}
+        <AnalysisTable />
       </div>
     </>
   );
