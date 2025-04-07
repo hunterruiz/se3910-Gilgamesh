@@ -64,10 +64,10 @@ function Dashboard() {
             id="url-search"
             placeholder="commercebank.com"
             onChange={(e) => setUrl(e.target.value)}></input>
+
           <button type="submit">Fetch</button>
         </form>
 
-        {/* TO DO pass httpsReq data to AnalysisTable */}
         <AnalysisTable httpsReq={httpsReq} />
       </div>
     </>
