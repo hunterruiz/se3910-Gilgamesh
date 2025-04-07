@@ -68,13 +68,7 @@ function Dashboard() {
         </form>
 
         {/* TO DO pass httpsReq data to AnalysisTable */}
-        <AnalysisTable
-          url={httpsReq.url}
-          certificates={httpsReq.certificates}
-          headers={httpsReq.headers}
-          protocol={httpsReq.protocol}
-          status={httpsReq.status}
-        />
+        <AnalysisTable httpsReq={httpsReq} />
       </div>
     </>
   );

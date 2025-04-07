@@ -4,7 +4,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 // TO DO Take data from another component and pass it to this one.
 // documentation on how to do this https://react.dev/learn/passing-props-to-a-component
-function AnalysisTable({ url, certificates, headers, protocol, status }) {
+function AnalysisTable({ httpsReq }) {
   return (
     <div className={styles.wrapper}>
       {/* TO DO add backend url to action */}
@@ -13,7 +13,7 @@ function AnalysisTable({ url, certificates, headers, protocol, status }) {
       </form>
       <div>
         <h2>URL:</h2>
-        <h3>{url}</h3>
+        <h3>{httpsReq.url}</h3>
       </div>
 
       <div>
@@ -36,16 +36,24 @@ function AnalysisTable({ url, certificates, headers, protocol, status }) {
             <td></td>
             {/* date */}
             <td></td>
-            <td>{protocol}</td>
-            <td>{status}</td>
+            <td>{httpsReq.protocol}</td>
+            <td>{httpsReq.status}</td>
           </tr>
         </tbody>
       </Table>
 
       <h2>Headers</h2>
       {/* TO DO make overflow hidden */}
-      <ListGroup>
-        <ListGroup.Item></ListGroup.Item>
+      <ListGroup className={styles.listGroup}>
+        {console.log(httpsReq.headers)}
+
+        {Object.keys(httpsReq.headers).forEach(function (key, index) {
+          return (
+            <ListGroup.Item>
+              {key} : {index}
+            </ListGroup.Item>
+          );
+        })}
       </ListGroup>
     </div>
   );
