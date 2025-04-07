@@ -19,7 +19,7 @@ function AnalysisTable({ httpsReq }) {
       <div>
         <h6>Last Scanned: </h6>
         {/* need date method */}
-        <p>11/20/2025</p>
+        <p>{httpsReq.headers.date}</p>
       </div>
 
       <Table name="sll-certificate" striped bordered hover>
