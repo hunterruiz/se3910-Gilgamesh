@@ -43,14 +43,13 @@ function AnalysisTable({ httpsReq }) {
       </Table>
 
       <h2>Headers</h2>
-      {/* TO DO make overflow hidden */}
       <ListGroup className={styles.listGroup}>
-        {console.log(httpsReq.headers)}
-
-        {Object.keys(httpsReq.headers).forEach(function (key, index) {
+        {/* divides the object up into an array and outputs them with key : value
+        a new ListGroup.Item is generated every time for each key value in httpsReq */}
+        {Object.keys(httpsReq.headers).map(function (key) {
           return (
             <ListGroup.Item>
-              {key} : {index}
+              {key + " : " + httpsReq.headers[key]}
             </ListGroup.Item>
           );
         })}
