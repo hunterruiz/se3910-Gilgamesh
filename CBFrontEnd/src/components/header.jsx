@@ -14,6 +14,7 @@ function Header() {
           <Nav className="me-auto">
             <Nav.Link href="/">ANALYZE</Nav.Link>
             <Nav.Link href="/saved">SAVED</Nav.Link>
+            <Nav.Link href="/login">LOGOUT</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
