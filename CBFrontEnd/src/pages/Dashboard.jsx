@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // can use this free api for testing https://jsonplaceholder.typicode.com/todos
 // place url into URL search on browser
+// free header inspection tool https://securityheaders.com/
 function Dashboard() {
   // use state to hold state of the url
   const [url, setUrl] = useState("");
@@ -33,10 +34,10 @@ function Dashboard() {
         console.log(data);
         setHttpsReq({
           url: data.url,
-          // TO DO figure out how to get certificate
+          // sll certificates won`t appear in response
           certificates: {},
           status: data.status,
-          headers: data.headers,
+          headers: Object.fromEntries(data.headers.entries()),
           // TO DO figure out how to get protocol
           protocol: null,
         });
@@ -63,11 +64,11 @@ function Dashboard() {
             id="url-search"
             placeholder="commercebank.com"
             onChange={(e) => setUrl(e.target.value)}></input>
+
           <button type="submit">Fetch</button>
         </form>
 
-        {/* TO DO pass httpsReq data to AnalysisTable */}
-        <AnalysisTable />
+        <AnalysisTable httpsReq={httpsReq} />
       </div>
     </>
   );
