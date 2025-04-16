@@ -1,5 +1,5 @@
+import Table from "react-bootstrap/Table";
 import { useEffect, useState } from "react";
-import Table from "react-bootstrap";
 
 function Saved() {
   const [urls, setUrls] = useState([]);
