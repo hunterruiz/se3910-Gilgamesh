@@ -1,31 +1,38 @@
 import Table from "react-bootstrap/Table";
+import { useEffect, useState } from "react";
 
 function Saved() {
+  const [urls, setUrls] = useState([]);
+
+  useEffect(()=>{
+      fetch(" http://localhost:8080/urls", {method:"GET"})
+      .then(res =>res.json())
+      .then(res=>{
+          setUrls(res)});
+  },[])
+
   return (
     <Table striped bordered hover>
-      <thead>
+    <thead>
         <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>URL</th>
-          <th>Last Scanned</th>
+        <th>#</th>
+        <th>Url Name</th>
+        <th>Url</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Google Home page</td>
-          <td>https://www.google.com/</td>
-          <td>3/27/2025</td>
+    </thead>
+    <tbody>
+
+    {urls.map(url =>
+
+        <tr key = {url.url_id}>
+        <td>{url.url_id}</td>
+        <td>{url.name}</td>
+        <td>{url.url}</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>Facebook Home page</td>
-          <td>https://www.facebook.com/</td>
-          <td>3/12/2025</td>
-        </tr>
-      </tbody>
-    </Table>
+        )}
+
+    </tbody>
+    </Table> 
   );
 }
 
