@@ -6,7 +6,7 @@ function Login() {
 
     return (
         <div>
-         <Form method="postmapping" action="/user">
+         <Form method="postmapping" action="/h2-console/user">
             <Form.Group className="mb-3" controlId="formGroupUsername">
               <Form.Label>Username</Form.Label>
               <Form.Control type="text" name="accountName" placeholder="Enter username" />
