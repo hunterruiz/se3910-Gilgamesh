@@ -8,7 +8,7 @@ function Dashboard() {
   // use state to hold state of the url
   const [url, setUrl] = useState("");
   const [httpsReq, setHttpsReq] = useState({
-    url: "",
+    url: '',
     certificates: {},
     status: null,
     headers: {},
@@ -22,6 +22,8 @@ function Dashboard() {
   function useFetch(event) {
     event.preventDefault();
     // TO DO add url validation
+    console.log(validURL(url));
+
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -50,6 +52,15 @@ function Dashboard() {
       .catch((error) => {
         throw new Error(error);
       });
+  }
+
+  function validURL(URL) {
+    try {
+      const newURL = new URL(URL);
+      return newURL.protocol === 'http:' || newURL.protocol === 'https:';
+    } catch (error) {
+      return false;
+    }
   }
 
   return (
