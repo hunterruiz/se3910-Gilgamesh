@@ -1,12 +1,17 @@
 import AnalysisTable from "../components/dashboard/AnalysisTable";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // can use this free api for testing https://jsonplaceholder.typicode.com/todos
 // place url into URL search on browser
 // free header inspection tool https://securityheaders.com/
 function Dashboard() {
   // use state to hold state of the url
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState({
+    name:'',
+    url:'',
+  });
+
   const [httpsReq, setHttpsReq] = useState({
     url: "",
     certificates: {},
@@ -14,6 +19,46 @@ function Dashboard() {
     headers: {},
     protocol: null,
   });
+
+  const changeValue=(e)=>{
+    console.log(e);
+    setUrl({
+      ...url, [e.target.name]:e.target.value
+    });
+    console.log(e.target.name + "name");
+    console.log(e.target.value + "value");
+  }
+
+  const navigate = useNavigate();
+
+  const submitUrl =(e)=>{
+    e.preventDefault();
+    fetch("http://localhost:8080/url", {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(url)
+    })
+    .then(res=>{
+      console.log(1, res);
+      if(res.status === 201){
+        return res.json();
+      }
+      else{
+        return null;
+      }
+    })
+    .then(res=>{
+      console.log(res)
+      if(res!=null){
+        navigate("/urls");;
+      }
+      else{
+        alert('fails');
+      }
+    });
+  }
 
   // TO DO need to fix CORS error
   // runs after clicking Fetch button in browser
