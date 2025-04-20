@@ -1,6 +1,5 @@
 import AnalysisTable from "../components/dashboard/AnalysisTable";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 // can use this free api for testing https://jsonplaceholder.typicode.com/todos
 // place url into URL search on browser
@@ -14,7 +13,7 @@ function Dashboard() {
 
   const [httpsRes, setHttpsRes] = useState({
     url: "",
-    certificates: {},
+    certificate: {},
     status: null,
     headers: {},
     protocol: null,

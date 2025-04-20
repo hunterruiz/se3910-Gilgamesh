@@ -29,9 +29,10 @@ public class urlService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             SSLSession sslSession = response.sslSession().get();
 
-            System.out.println(sslSession.getPeerCertificates()[0]);
-            System.out.println(sslSession.getPeerCertificates()[0]);
-            HttpsRes httpsRes = new HttpsRes(url.getUrl(), response.statusCode(), sslSession.getProtocol(), sslSession.getPeerCertificates()[0], response.headers().map());
+            X509Certificate cert = (X509Certificate) sslSession.getPeerCertificates()[0];
+            SSLCertificate sslCertificate = new SSLCertificate(cert);
+
+            HttpsRes httpsRes = new HttpsRes(url.getUrl(), response.statusCode(), sslSession.getProtocol(), sslCertificate, response.headers().map());
             return httpsRes;
         } catch (Exception e) {
             System.err.println(e);

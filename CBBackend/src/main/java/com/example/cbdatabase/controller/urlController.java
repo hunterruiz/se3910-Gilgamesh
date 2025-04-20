@@ -14,9 +14,10 @@ public class urlController {
     private final urlService urlService;
 
     @CrossOrigin
-    @PostMapping("/url")
+    @PostMapping("/url/save")
     public ResponseEntity<?> save(@RequestBody URL url) {
 
+        System.out.println("Save");
         System.out.println(url.toString());
 
         String userId = "test";

@@ -5,7 +5,13 @@
 }
 
 .listGroup {
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 300px;
   background-color: white;
+  margin-bottom: 20px;
+}
+
+.listItem {
+  border-radius: 0;
+  overflow-wrap: anywhere;
 }
