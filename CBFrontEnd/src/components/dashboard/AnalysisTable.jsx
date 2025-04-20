@@ -31,7 +31,7 @@ function AnalysisTable({ httpsRes }) {
         </thead>
         <tbody>
           <tr>
-            <td>{/*SSL Certificate*/}</td>
+            <td>{httpsRes.certificate}</td>
             <td> {/* Expiration */}</td>
             <td>{httpsRes.protocol}</td>
             <td>{httpsRes.status}</td>

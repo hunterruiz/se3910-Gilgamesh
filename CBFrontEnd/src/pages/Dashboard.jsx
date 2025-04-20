@@ -40,19 +40,15 @@ function Dashboard() {
           return res.json();
         })
         .then((data) => {
-          console.log("Raw data\n");
-          console.log(data);
           setHttpsRes({
             url: data.url,
             // sll certificates won`t appear in response
-            certificates: {},
+            certificate: data.certificate,
             status: data.statusCode,
-            headers: {},
+            headers: data.headers,
             // TO DO figure out how to get protocol
             protocol: data.protocol,
           });
-          console.log("httpReq state\n");
-          console.log(httpsReq);
           console.log(data);
         });
     } catch (error) {

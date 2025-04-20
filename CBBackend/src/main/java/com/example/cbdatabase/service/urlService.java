@@ -12,6 +12,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import javax.net.ssl.SSLSession;
 
+import java.security.cert.X509Certificate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -28,8 +29,9 @@ public class urlService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             SSLSession sslSession = response.sslSession().get();
 
-            System.out.println(response.headers().toString());
-            HttpsRes httpsRes = new HttpsRes(url.getUrl(), response.statusCode(), sslSession.getProtocol(), sslSession.getPeerCertificates()[0], response.headers());
+            System.out.println(sslSession.getPeerCertificates()[0]);
+            System.out.println(sslSession.getPeerCertificates()[0]);
+            HttpsRes httpsRes = new HttpsRes(url.getUrl(), response.statusCode(), sslSession.getProtocol(), sslSession.getPeerCertificates()[0], response.headers().map());
             return httpsRes;
         } catch (Exception e) {
             System.err.println(e);
