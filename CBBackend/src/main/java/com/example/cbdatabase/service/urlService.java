@@ -6,6 +6,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import javax.net.ssl.SSLSession;
+
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,6 +20,23 @@ public class urlService {
 
     private final urlRepository urlRepository;
     private final AccountRepository accountRepository;
+
+    public HttpsRes fetch(URL url){
+        try {
+            HttpClient httpClient = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url.getUrl())).build();
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            SSLSession sslSession = response.sslSession().get();
+
+            System.out.println(response.headers().toString());
+            HttpsRes httpsRes = new HttpsRes(url.getUrl(), response.statusCode(), sslSession.getProtocol(), sslSession.getPeerCertificates()[0], response.headers());
+            return httpsRes;
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+        return null;
+    }
 
     public URL create(URL url, String userId){
 

@@ -2,13 +2,13 @@ import Table from "react-bootstrap/Table";
 import styles from "../../styles/analysis-table.module.css";
 import ListGroup from "react-bootstrap/ListGroup";
 
-function AnalysisTable({ httpsReq }) {
+function AnalysisTable({ httpsRes }) {
   return (
     <div className={styles.wrapper}>
       {/* TO DO add backend url to action */}
 
       <div>
-        <h2>URL: {httpsReq.url}</h2>
+        <h2>URL: {httpsRes.url}</h2>
 
         <div>
           <form method="POST" action="backend-url">
@@ -16,7 +16,7 @@ function AnalysisTable({ httpsReq }) {
             <button type="submit">Save</button>
           </form>
 
-          <h6>Last Scanned: {httpsReq.headers.date}</h6>
+          <h6>Last Scanned: {httpsRes.headers.date}</h6>
         </div>
       </div>
 
@@ -33,8 +33,8 @@ function AnalysisTable({ httpsReq }) {
           <tr>
             <td>{/*SSL Certificate*/}</td>
             <td> {/* Expiration */}</td>
-            <td>{httpsReq.protocol}</td>
-            <td>{httpsReq.status}</td>
+            <td>{httpsRes.protocol}</td>
+            <td>{httpsRes.status}</td>
           </tr>
         </tbody>
       </Table>
@@ -42,11 +42,11 @@ function AnalysisTable({ httpsReq }) {
       <h2>Headers</h2>
       <ListGroup className={styles.listGroup}>
         {/* divides the object up into an array and outputs them with key : value in
-        a new ListGroup.Item which is generated every time for each key value in httpsReq */}
-        {Object.keys(httpsReq.headers).map(function (key) {
+        a new ListGroup.Item which is generated every time for each key value in httpsRes */}
+        {Object.keys(httpsRes.headers).map(function (key) {
           return (
             <ListGroup.Item key={key}>
-              {key + " : " + httpsReq.headers[key]}
+              {key + " : " + httpsRes.headers[key]}
             </ListGroup.Item>
           );
         })}
