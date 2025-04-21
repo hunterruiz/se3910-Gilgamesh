@@ -14,15 +14,21 @@ public class urlController {
     private final urlService urlService;
 
     @CrossOrigin
-    @PostMapping("/url")
+    @PostMapping("/url/save")
     public ResponseEntity<?> save(@RequestBody URL url) {
 
-        System.out.println("Name : " + url.getName());
-        System.out.println("URL : " + url.getUrl());
+        System.out.println("Save");
+        System.out.println(url.toString());
 
         String userId = "test";
 
         return new ResponseEntity<>(urlService.create(url, userId), HttpStatus.CREATED);
+    }
+
+    @CrossOrigin
+    @PostMapping("/url/fetch")
+    public ResponseEntity<?> fetch(@RequestBody URL url) {
+        return new ResponseEntity<>(urlService.fetch(url), HttpStatus.CREATED);
     }
 
     @CrossOrigin

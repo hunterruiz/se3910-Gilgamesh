@@ -22,4 +22,16 @@ public class URL {
     @ManyToOne
     @JoinColumn(name = "accountId")
     private Account account;
+
+    public String getUrl() {
+        return url;
+    }
+
+    @Override
+    public String toString(){
+        return "URL{" +
+            "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                    '}';
+    }
 }

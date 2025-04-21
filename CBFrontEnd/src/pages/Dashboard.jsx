@@ -1,6 +1,5 @@
 import AnalysisTable from "../components/dashboard/AnalysisTable";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 // can use this free api for testing https://jsonplaceholder.typicode.com/todos
 // place url into URL search on browser
@@ -8,98 +7,55 @@ import { useNavigate } from "react-router-dom";
 function Dashboard() {
   // use state to hold state of the url
   const [url, setUrl] = useState({
-    name:'',
-    url:'',
+    url: "",
+    name: "",
   });
 
-  const [httpsReq, setHttpsReq] = useState({
-    url: '',
-    certificates: {},
+  const [httpsRes, setHttpsRes] = useState({
+    url: "",
+    certificate: {},
     status: null,
     headers: {},
     protocol: null,
   });
 
-  const changeValue=(e)=>{
-    console.log(e);
-    setUrl({
-      ...url, [e.target.name]:e.target.value
-    });
-    console.log(e.target.name + "name");
-    console.log(e.target.value + "value");
-  }
-
-  const navigate = useNavigate();
-
-  const submitUrl =(e)=>{
-    e.preventDefault();
-    fetch("http://localhost:8080/url", {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(url)
-    })
-    .then(res=>{
-      console.log(1, res);
-      if(res.status === 201){
-        return res.json();
-      }
-      else{
-        return null;
-      }
-    })
-    .then(res=>{
-      console.log(res)
-      if(res!=null){
-        navigate("/urls");;
-      }
-      else{
-        alert('fails');
-      }
-    });
-  }
-
-  // TO DO need to fix CORS error
-  // runs after clicking Fetch button in browser
-  // might need to hit fetch twice because it only outputs the current
-  // response the second time
-  function useFetch(event) {
+  function submitUrl(event) {
     event.preventDefault();
-    // TO DO add url validation
-    console.log(validURL(url));
 
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response;
+    try {
+      isValidURL(url.url);
+
+      fetch("http://localhost:8080/url/fetch", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(url),
       })
-      .then((data) => {
-        console.log("Raw data\n");
-        console.log(data);
-        setHttpsReq({
-          url: data.url,
-          // sll certificates won`t appear in response
-          certificates: {},
-          status: data.status,
-          headers: Object.fromEntries(data.headers.entries()),
-          // TO DO figure out how to get protocol
-          protocol: null,
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(res.error);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setHttpsRes({
+            url: data.url,
+            // sll certificates won`t appear in response
+            certificate: data.certificate,
+            status: data.statusCode,
+            headers: data.headers,
+            // TO DO figure out how to get protocol
+            protocol: data.protocol,
+          });
+          console.log(data);
         });
-        console.log("httpReq state\n");
-        // do fn-f12 or f12 to see this response in the browser
-        // this opens the console cmd in browser.
-        // click on console and the messages
-        console.log(httpsReq);
-      })
-      .catch((error) => {
-        throw new Error(error);
-      });
+    } catch (error) {
+      throw new Error("Error submitting URL:", error);
+    }
   }
 
-  function validURL(URL) {
+  function isValidURL(URL) {
     const URLregex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
     const regex = new RegExp(URLregex);
 
@@ -117,22 +73,20 @@ function Dashboard() {
   }
 
   return (
-    // html elements that are returned in the browser
     <>
       <div>
-        {/* onSumbit runs the useFetch. useFetch is at the top of this file */}
-        <form onSubmit={useFetch}>
+        <form onSubmit={submitUrl}>
           <label htmlFor="url-search">URL Search</label>
           <input
             autoComplete="off"
             id="url-search"
             placeholder="commercebank.com"
-            onChange={(e) => setUrl(e.target.value)}></input>
+            onChange={(e) => setUrl({ ...url, url: e.target.value })}></input>
 
           <button type="submit">Fetch</button>
         </form>
 
-        <AnalysisTable httpsReq={httpsReq} />
+        <AnalysisTable httpsRes={httpsRes} />
       </div>
     </>
   );
