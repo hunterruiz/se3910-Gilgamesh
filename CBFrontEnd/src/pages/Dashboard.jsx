@@ -22,8 +22,11 @@ function Dashboard() {
   function submitUrl(event) {
     event.preventDefault();
 
-    try {
-      isValidURL(url.url);
+    if (!isValidURL(url.url)) {
+      alert("This URL is not valid.")
+      return;
+    }
+
 
       fetch("http://localhost:8080/url/fetch", {
         method: "POST",
@@ -36,7 +39,10 @@ function Dashboard() {
           if (!res.ok) {
             throw new Error(res.error);
           }
-          return res.json();
+          return res.json().catch((jsonError) => {
+            alert("This URL is not valid.");
+            throw jsonError;
+          });
         })
         .then((data) => {
           setHttpsRes({
@@ -49,28 +55,22 @@ function Dashboard() {
             protocol: data.protocol,
           });
           console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error)
         });
-    } catch (error) {
-      throw new Error("Error submitting URL:", error);
-    }
   }
+  
 
-  function isValidURL(URL) {
-    const URLregex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
-    const regex = new RegExp(URLregex);
-
-    if (url.match(regex)) {
+  function isValidURL(inputURL) {
+    //checks url w/ URL object
       try {
-        const newURL = new URL(URL);
-        return newURL.protocol === 'http:' || newURL.protocol === 'https:';
-      } catch (error) {
+        const testUrl = new URL(inputURL.startsWith("http") ? inputURL : "https://" + inputURL);
+        return testUrl.protocol === "http:" || testUrl.protocol === "https:";
+      } catch (err) {
         return false;
       }
     }
-    else {
-
-    }
-  }
 
   return (
     <>
