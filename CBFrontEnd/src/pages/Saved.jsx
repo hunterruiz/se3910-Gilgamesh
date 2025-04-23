@@ -5,7 +5,7 @@ function Saved() {
   const [urls, setUrls] = useState([]);
 
   useEffect(()=>{
-      fetch(" http://localhost:8080/urls", {method:"GET"})
+      fetch("http://localhost:8080/urls", {method:"GET"})
       .then(res =>res.json())
       .then(res=>{
           setUrls(res)});
