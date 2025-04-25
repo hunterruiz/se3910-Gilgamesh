@@ -61,4 +61,12 @@ public class urlService {
 
         return null;
     }
+
+    // Use urlRepository to delete a URL record
+    public void deleteById(String userId, Long urlId){
+        Account account = accountRepository.findByUserId(userId).orElse(null);
+        if (account != null) {
+            urlRepository.deleteById(urlId);
+        }
+    }
 }
