@@ -1,21 +1,4 @@
-function isValidURL(inputURL) {
-  //checks url w/ URL object
-  try {
-    const testUrl = new URL(
-      inputURL.startsWith("http") ? inputURL : "https://" + inputURL
-    );
-    return testUrl.protocol === "http:" || testUrl.protocol === "https:";
-  } catch (err) {
-    return false;
-  }
-}
-
 function scanUrl(url, setter) {
-  if (!isValidURL(url.url)) {
-    alert("This URL is not valid.");
-    return;
-  }
-
   fetch("http://localhost:8080/url/fetch", {
     method: "POST",
     headers: {

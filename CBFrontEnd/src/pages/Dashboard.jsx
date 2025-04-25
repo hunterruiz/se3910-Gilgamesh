@@ -22,7 +22,23 @@ function Dashboard() {
 
   function submitUrl(event) {
     event.preventDefault();
+    if (!isValidURL(url.url)) {
+      alert("This URL is not valid.");
+      return;
+    }
     scanUrl(url, setHttpsRes);
+  }
+
+  function isValidURL(inputURL) {
+    //checks url w/ URL object
+    try {
+      const testUrl = new URL(
+        inputURL.startsWith("http") ? inputURL : "https://" + inputURL
+      );
+      return testUrl.protocol === "http:" || testUrl.protocol === "https:";
+    } catch (err) {
+      return false;
+    }
   }
 
   return (
