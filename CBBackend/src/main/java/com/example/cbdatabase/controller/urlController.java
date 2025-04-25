@@ -38,4 +38,12 @@ public class urlController {
         System.out.println("FindAllUrls By Name : " + userId);
         return new ResponseEntity<>(urlService.findAll(userId), HttpStatus.OK);
     }
+
+    // Use urlService.deleteById to delete a record
+    @DeleteMapping("/url/{urlId}")
+    public void deleteUrl(@PathVariable("urlId") Long urlId) {
+        String userId = "test";
+        System.out.println("Delete By Id : " + userId);
+        urlService.deleteById(userId, urlId);
+    }
 }
