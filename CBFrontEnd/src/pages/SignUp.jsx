@@ -9,6 +9,7 @@ function SignUp() {
 
        
   const[user, setUser] = useState({
+    userId: '',
     accountName:'',
     accountPassword:'',
   });
@@ -27,7 +28,7 @@ const changeValue=(e)=>{
 
 const submitUser =(e)=>{
     e.preventDefault();
-    fetch(" http://localhost:8080/user",{
+    fetch(" http://localhost:8080/api/user",{
       method:"POST",
       headers:{
         "Content-Type" : "application/json"
@@ -45,7 +46,7 @@ const submitUser =(e)=>{
     .then(res=>{
       console.log(res)
       if(res!==null){
-        navigate("/login");;
+        navigate("/login");
       }else{
         alert('fails');
       }
@@ -56,9 +57,17 @@ const submitUser =(e)=>{
 
       return (
         <div>
+          <h2>Sign Up</h2>
          <Form onSubmit = {submitUser}>
+            <Form.Group className="mb-3" controlId="formGroupUsername">
+              <Form.Label>Create UserId</Form.Label>
+              <Form.Control type="text"  placeholder="Enter username" name="userId" onChange = {changeValue}  required/>
+              <Form.Text className="text-muted">
+              </Form.Text>
+            </Form.Group>
+
             <Form.Group className="mb-3" controlId="formGroupEmail">
-              <Form.Label>Creat Username</Form.Label>
+              <Form.Label>Create Username</Form.Label>
               <Form.Control type="text"  placeholder="Enter username" name="accountName" onChange = {changeValue}  required/>
               <Form.Text className="text-muted">
               </Form.Text>

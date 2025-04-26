@@ -1,73 +1,75 @@
-import { useEffect, useState } from "react";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import {useState} from "react";
+import {useNavigate} from 'react-router-dom';
+import LoginAuth from "../components/LoginAuth";
+
 
 function Login() {
 
-//   const[user, setUser] = useState({
-//     accountName:'',
-//     accountPassword:'',
-//   });
+    const [userId,setUserId]=useState('');
+    const [accountPassword, setAccountPassword] = useState('');
+    const[message, setMessage] = useState('');
 
-// const changeValue=(e)=>{
-//   console.log(e);
-//   setUser;({
-//     ...user,[e.target.name]:e.target.value
-//   });
-//   console.log(e.target.name + "name");
-//   console.log(e.target.value + "value");
-// }
+    const navigate = useNavigate();
 
-// const navigate = useNavigate();  
+    const handleUserId = (e) => {
+      setUserId(e.target.value);
+     
+    }
+      
+    const handleAccountPassword = (e) => {
+      setAccountPassword(e.target.value);     
+    }
 
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      // calls LoginAuth login method to post userId and accountPassword to backend and check for matching data
+      const response = await LoginAuth.login({ userId, accountPassword});
+      try{
+        if(response.data === 'Login Successful'){
+          navigate('/');
+         }
+        else{
+          setMessage('Invalid Username or Password');
+        }
+      }
+      catch(error){
+          setMessage('Invalid Username or Password');
+      }
 
-// const submitUser =(e)=>{
-//     e.preventDefault();
-//     fetch("http://localhost:8080/user", {
-//       method:"GET",
-//       headers:{
-//         "Content-Type" : "application/json"
-//       },
-//       body: JSON.stringify(user)
-//     })
-//     .then(res=>{
-//         console.log(1,res);
-//         if(res.status === 201){
-//           return res.json();
-//         }else{
-//           return null;
-//         }
-//       })
-//     .then(res=>{
-//       console.log(res)
-//       if(res!==null){
-//         navigate("/");
-//       }else{
-//         alert('fails');
-//       }
-    
-//     });
-
-// }    
-
+    }
 
     return (
         <div>
-          {/* <Form onSubmit = {handleLogin}>
-            <Form.Group className="mb-3" controlId="formGroupUsername">
-              <Form.Label>Username</Form.Label>
-              <Form.Input type="text"  placeholder="Enter username" name="accountName" onChange = {changeValue} required  />
-              <Form.Text className="text-muted">
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formGroupPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Input type="password"  placeholder="Password" name="accountPassword" onChange = {changeValue} required/>
-            </Form.Group>
-
+          <h2>Login</h2>
+          {/* displays the setMessages defined above when they occur */}
+          {message && <div className="alert alert-daner">{message}</div>}
+          <Form onSubmit = {handleSubmit}>
+          <div>
+            <label htmlFor="userId">Username</label>
+            <input
+              type = "text"
+              placeholder="Username"
+              id="userId"
+              value = {userId}
+              onChange={handleUserId} required>
+            </input>
+          </div>
+          <div>
+            <label htmlFor="accountPassword">Password</label>
+            <input
+              type = "password"
+              placeholder="Enter Password"
+              id="accountPassword"
+              value = {accountPassword}
+              onChange={handleAccountPassword} required>
+            </input>
+          </div>
             <Button variant="primary" type="submit">
                 Login
             </Button>      
-          </Form>  */}
+          </Form> 
           <a href="/signUp">Sign up</a>
         </div>
       );
