@@ -17,7 +17,7 @@ public class urlService {
 
     public URL create(URL url, String userId){
 
-        Account account = accountRepository.findByUserId(userId).orElse(null);
+        Account account = accountRepository.findByUserId(userId);
 
         if (account != null){
             url.setAccount(account);
@@ -28,7 +28,7 @@ public class urlService {
 
     @GetMapping("/url")
     public List<URL> findAll(String userId){
-        Account account = accountRepository.findByUserId(userId).orElse(null);
+        Account account = accountRepository.findByUserId(userId);
         if (account != null){
             return urlRepository.findAllByAccount(account);
         }
