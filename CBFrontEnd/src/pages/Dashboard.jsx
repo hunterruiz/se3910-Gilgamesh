@@ -1,5 +1,6 @@
-import AnalysisTable from "../components/dashboard/AnalysisTable";
+import { AnalysisTable } from "../components/dashboard/AnalysisTable";
 import { useState } from "react";
+import { scanUrl } from "../utilities/fetch";
 
 // can use this free api for testing https://jsonplaceholder.typicode.com/todos
 // place url into URL search on browser
@@ -21,56 +22,24 @@ function Dashboard() {
 
   function submitUrl(event) {
     event.preventDefault();
-
     if (!isValidURL(url.url)) {
-      alert("This URL is not valid.")
+      alert("This URL is not valid.");
       return;
     }
-
-
-      fetch("http://localhost:8080/url/fetch", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(url),
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error(res.error);
-          }
-          return res.json().catch((jsonError) => {
-            alert("This URL is not valid.");
-            throw jsonError;
-          });
-        })
-        .then((data) => {
-          setHttpsRes({
-            url: data.url,
-            // sll certificates won`t appear in response
-            certificate: data.certificate,
-            status: data.statusCode,
-            headers: data.headers,
-            // TO DO figure out how to get protocol
-            protocol: data.protocol,
-          });
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error("Error:", error)
-        });
+    scanUrl(url, setHttpsRes);
   }
-  
 
   function isValidURL(inputURL) {
     //checks url w/ URL object
-      try {
-        const testUrl = new URL(inputURL.startsWith("http") ? inputURL : "https://" + inputURL);
-        return testUrl.protocol === "http:" || testUrl.protocol === "https:";
-      } catch (err) {
-        return false;
-      }
+    try {
+      const testUrl = new URL(
+        inputURL.startsWith("http") ? inputURL : "https://" + inputURL
+      );
+      return testUrl.protocol === "http:" || testUrl.protocol === "https:";
+    } catch (err) {
+      return false;
     }
+  }
 
   return (
     <>
@@ -78,7 +47,6 @@ function Dashboard() {
         <form onSubmit={submitUrl}>
           <label htmlFor="url-search">URL Search</label>
           <input
-            autoComplete="off"
             id="url-search"
             placeholder="commercebank.com"
             onChange={(e) => setUrl({ ...url, url: e.target.value })}></input>
