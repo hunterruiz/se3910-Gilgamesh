@@ -43,7 +43,15 @@ public class urlController {
     @DeleteMapping("/url/{urlId}")
     public void deleteUrl(@PathVariable("urlId") Long urlId) {
         String userId = "test";
-        System.out.println("Delete By Id : " + userId);
+        System.out.println("Delete By Id : " + userId + " " + urlId);
         urlService.deleteById(userId, urlId);
+    }
+
+    // Use urlService.create to update a record
+    @PutMapping("/url/update")
+    public ResponseEntity<?> update(@RequestBody URL url) {
+        String userId = "test";
+        System.out.println("Update By Id : " + userId + " " + url.toString());
+        return new ResponseEntity<>(urlService.create(url, userId), HttpStatus.OK);
     }
 }

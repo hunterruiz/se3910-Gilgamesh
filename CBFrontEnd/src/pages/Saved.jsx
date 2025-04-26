@@ -25,7 +25,7 @@ function Saved() {
     {urls.map(url =>
 
         <tr key = {url.url_id}>
-        <td>{url.url_id}</td>
+        <td>{url.urlId}</td>
         <td>{url.name}</td>
         <td>{url.url}</td>
         </tr>
