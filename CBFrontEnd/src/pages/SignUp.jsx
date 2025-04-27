@@ -46,7 +46,7 @@ const submitUser =(e)=>{
     .then(res=>{
       console.log(res)
       if(res!==null){
-        navigate("/login");
+        navigate("/");
       }else{
         alert('fails');
       }
@@ -61,7 +61,7 @@ const submitUser =(e)=>{
          <Form onSubmit = {submitUser}>
             <Form.Group className="mb-3" controlId="formGroupUsername">
               <Form.Label>Create UserId</Form.Label>
-              <Form.Control type="text"  placeholder="Enter username" name="userId" onChange = {changeValue}  required/>
+              <Form.Control type="text"  placeholder="Enter userId" name="userId" onChange = {changeValue}  required/>
               <Form.Text className="text-muted">
               </Form.Text>
             </Form.Group>

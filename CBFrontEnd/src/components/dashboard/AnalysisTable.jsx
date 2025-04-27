@@ -30,7 +30,7 @@ function AnalysisTable({ httpsRes }) {
   // Sending the URL data to the backend
   const sendUrl = (e) => {
     e.preventDefault();
-    const res = saveUrl(url);
+    const res = saveUrl(url, localStorage.getItem('user'));
 
     if (res !== null) {
       navigate("/saved");

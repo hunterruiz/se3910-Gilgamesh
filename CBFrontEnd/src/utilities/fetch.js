@@ -31,8 +31,8 @@ function scanUrl(url, setter) {
     });
 }
 
-function saveUrl(url) {
-  fetch("http://localhost:8080/url/save", {
+function saveUrl(url, userId) {
+  fetch(`http://localhost:8080/url/save/${userId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

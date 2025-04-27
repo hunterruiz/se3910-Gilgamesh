@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useNavigate} from 'react-router-dom';
 import LoginAuth from "../components/LoginAuth";
 
@@ -10,6 +10,7 @@ function Login() {
     const [userId,setUserId]=useState('');
     const [accountPassword, setAccountPassword] = useState('');
     const[message, setMessage] = useState('');
+    const [user, setUser] = useState()
 
     const navigate = useNavigate();
 
@@ -24,11 +25,15 @@ function Login() {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
+      const user = { userId, accountPassword }
       // calls LoginAuth login method to post userId and accountPassword to backend and check for matching data
       const response = await LoginAuth.login({ userId, accountPassword});
       try{
         if(response.data === 'Login Successful'){
-          navigate('/');
+          setUser(response.data)
+          localStorage.setItem('user', userId)
+          console.log(response.data)
+          navigate('/dashboard');
          }
         else{
           setMessage('Invalid Username or Password');
@@ -40,6 +45,19 @@ function Login() {
 
     }
 
+    useEffect(() => {
+      const loggedInUser = localStorage.getItem("user");
+      if (loggedInUser) {
+        const foundUser = JSON.parse(loggedInUser);
+        setUser(foundUser);
+      }
+    },[]);
+
+    // If the user is already logged in, navigate to the analysis page
+    if (user) {
+      navigate('/dashboard');
+    }
+    
     return (
         <div>
           <h2>Login</h2>
@@ -47,7 +65,7 @@ function Login() {
           {message && <div className="alert alert-daner">{message}</div>}
           <Form onSubmit = {handleSubmit}>
           <div>
-            <label htmlFor="userId">Username</label>
+            <label htmlFor="userId">UserId</label>
             <input
               type = "text"
               placeholder="Username"
