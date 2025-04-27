@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 function View() {
   const location = useLocation();
   const navigate = useNavigate();
+  const loggedIn = localStorage.getItem('user');
 
   const [url, setUrl] = useState({
     urlId: location.state.urlId,
@@ -37,7 +38,7 @@ function View() {
         {" "}
         <Button
           onClick={() => {
-            const res = saveUrl(url);
+            const res = saveUrl(url, loggedIn);
             routeToSaved(res);
           }}
           variant="success">

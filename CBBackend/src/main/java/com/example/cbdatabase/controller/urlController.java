@@ -13,14 +13,14 @@ public class urlController {
 
     private final urlService urlService;
 
+    // Uses the PathVariable to determine which account the URL is saved under
     @CrossOrigin
-    @PostMapping("/url/save")
-    public ResponseEntity<?> save(@RequestBody URL url) {
+    @PostMapping("/url/save/{userId}")
+    public ResponseEntity<?> save(@RequestBody URL url,@PathVariable String userId) {
 
         System.out.println("Save");
+        System.out.println(userId);
         System.out.println(url.toString());
-
-        String userId = "test";
 
         return new ResponseEntity<>(urlService.create(url, userId), HttpStatus.CREATED);
     }
@@ -31,29 +31,19 @@ public class urlController {
         return new ResponseEntity<>(urlService.fetch(url), HttpStatus.CREATED);
     }
 
+    // Uses the PathVariable to find all URLs saved to that account
     @CrossOrigin
-    @GetMapping("/urls")
-    public ResponseEntity<?> findAllUrls(){
-        String userId = "test";
+    @GetMapping("/urls/{userId}")
+    public ResponseEntity<?> findAllUrls(@PathVariable String userId) {
         System.out.println("FindAllUrls By Name : " + userId);
         return new ResponseEntity<>(urlService.findAll(userId), HttpStatus.OK);
     }
 
-    // Use urlService.deleteById to delete a record
+    // Uses the PathVariable to delete only the specific URL
     @CrossOrigin
     @DeleteMapping("/url/{urlId}")
     public void deleteUrl(@PathVariable("urlId") Long urlId) {
-        String userId = "test";
-        System.out.println("Delete By Id : " + userId + " " + urlId);
-        urlService.deleteById(userId, urlId);
-    }
-
-    // Use urlService.create to update a record
-    @CrossOrigin
-    @PutMapping("/url/update")
-    public ResponseEntity<?> update(@RequestBody URL url) {
-        String userId = "test";
-        System.out.println("Update By Id : " + userId + " " + url.toString());
-        return new ResponseEntity<>(urlService.create(url, userId), HttpStatus.OK);
+        System.out.println("Delete By Id : " + urlId);
+        urlService.deleteById(urlId);
     }
 }
