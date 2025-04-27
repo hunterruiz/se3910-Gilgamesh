@@ -11,6 +11,10 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
 
+    public Account findByUserId(String userId){
+        return accountRepository.findByUserId(userId);
+    }
+
     public Account create(Account account) {
         return accountRepository.save(account);
     }
