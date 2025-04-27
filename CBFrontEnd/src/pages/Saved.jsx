@@ -1,29 +1,42 @@
 import Table from "react-bootstrap/Table";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 function Saved() {
+  const [urls, setUrls] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("http://localhost:8080/urls", { method: "GET" })
+      .then((res) => res.json())
+      .then((res) => {
+        setUrls(res);
+      });
+  }, []);
+
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>#</th>
+          <th>id</th>
           <th>Name</th>
           <th>URL</th>
-          <th>Last Scanned</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Google Home page</td>
-          <td>https://www.google.com/</td>
-          <td>3/27/2025</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Facebook Home page</td>
-          <td>https://www.facebook.com/</td>
-          <td>3/12/2025</td>
-        </tr>
+        {urls.map((url) => (
+          <tr
+            onClick={() => {
+              navigate("/saved/view/" + url.urlId, {
+                state: { name: url.name, url: url.url, urlId: url.urlId },
+              });
+            }}
+            key={url.urlId}>
+            <td>{url.urlId}</td>
+            <td>{url.name}</td>
+            <td>{url.url}</td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );

@@ -1,3 +1,4 @@
+import { Button } from "bootstrap";
 import "./styles/buttons.css";
 
 function SmallButton() {
@@ -5,7 +6,7 @@ function SmallButton() {
 }
 
 function BigButton() {
-  return <></>;
+  return;
 }
 
 export { SmallButton, BigButton };
