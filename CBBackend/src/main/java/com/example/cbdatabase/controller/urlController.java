@@ -40,6 +40,7 @@ public class urlController {
     }
 
     // Use urlService.deleteById to delete a record
+    @CrossOrigin
     @DeleteMapping("/url/{urlId}")
     public void deleteUrl(@PathVariable("urlId") Long urlId) {
         String userId = "test";
@@ -48,6 +49,7 @@ public class urlController {
     }
 
     // Use urlService.create to update a record
+    @CrossOrigin
     @PutMapping("/url/update")
     public ResponseEntity<?> update(@RequestBody URL url) {
         String userId = "test";
