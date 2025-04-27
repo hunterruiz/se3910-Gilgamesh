@@ -52,6 +52,25 @@ function saveUrl(url) {
     });
 }
 
-function deleteUrl(urlId) {}
+function deleteUrl(urlId) {
+  fetch(`http://localhost:8080/url/${urlId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(urlId),
+  })
+    .then((res) => {
+      console.log(1, res);
+      if (res.status === 201) {
+        return res.json();
+      } else {
+        return null;
+      }
+    })
+    .then((res) => {
+      return res;
+    });
+}
 
 export { scanUrl, saveUrl, deleteUrl };

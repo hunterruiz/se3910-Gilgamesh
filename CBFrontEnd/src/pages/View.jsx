@@ -52,7 +52,7 @@ function View() {
         </Button>
         <Button
           onClick={() => {
-            const res = deleteUrl(url);
+            const res = deleteUrl(url.urlId);
             routeToSaved(res);
           }}
           variant="danger">
