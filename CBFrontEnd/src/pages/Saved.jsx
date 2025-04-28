@@ -15,30 +15,32 @@ function Saved() {
   }, []);
 
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Name</th>
-          <th>URL</th>
-        </tr>
-      </thead>
-      <tbody>
-        {urls.map((url) => (
-          <tr
-            onClick={() => {
-              navigate("/saved/view/" + url.urlId, {
-                state: { name: url.name, url: url.url, urlId: url.urlId },
-              });
-            }}
-            key={url.urlId}>
-            <td>{url.urlId}</td>
-            <td>{url.name}</td>
-            <td>{url.url}</td>
+    <div style={{ backgroundColor: "#006847", minHeight: "100vh", padding: "2rem" }}>
+      <Table striped bordered hover variant="light" className="bg-white rounded">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>URL</th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {urls.map((url) => (
+            <tr
+              onClick={() => {
+                navigate("/saved/view/" + url.urlId, {
+                  state: { name: url.name, url: url.url, urlId: url.urlId },
+                });
+              }}
+              key={url.urlId}>
+              <td>{url.urlId}</td>
+              <td>{url.name}</td>
+              <td>{url.url}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
   );
 }
 

@@ -45,10 +45,10 @@ function Dashboard() {
     <>
       <div>
         <form onSubmit={submitUrl}>
-          <label htmlFor="url-search">URL Search</label>
+          <label htmlFor="url-search" style={{ color: "white" }}>URL Search:</label>
           <input
             id="url-search"
-            placeholder="commercebank.com"
+            placeholder="https://www.website.com"
             onChange={(e) => setUrl({ ...url, url: e.target.value })}></input>
 
           <button type="submit">Fetch</button>
