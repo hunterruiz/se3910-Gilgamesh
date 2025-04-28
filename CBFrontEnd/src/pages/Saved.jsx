@@ -19,7 +19,6 @@ function Saved() {
       <Table striped bordered hover variant="light" className="bg-white rounded">
         <thead>
           <tr>
-            <th>id</th>
             <th>Name</th>
             <th>URL</th>
           </tr>
@@ -33,7 +32,6 @@ function Saved() {
                 });
               }}
               key={url.urlId}>
-              <td>{url.urlId}</td>
               <td>{url.name}</td>
               <td>{url.url}</td>
             </tr>
