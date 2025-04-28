@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+div {
+  background-color: #006847;
+  opacity: 1;
+}
+
+h2, h6 {
+  color: white;
+}

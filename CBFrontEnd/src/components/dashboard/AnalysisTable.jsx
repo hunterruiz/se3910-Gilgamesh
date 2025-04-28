@@ -41,12 +41,10 @@ function AnalysisTable({ httpsRes }) {
 
   return (
     <div className={styles.wrapper}>
-      {/* TO DO add backend url to action */}
-
       <div>
-        <h2>URL: {httpsRes.url}</h2>
+        <h2 style={{ color: "white" }}>URL: {httpsRes.url}</h2>
 
-        <div>
+        <div style={{ color: "white" }}>
           <Form onSubmit={sendUrl}>
             <Form.Group>
               <Form.Label>Url Name:</Form.Label>

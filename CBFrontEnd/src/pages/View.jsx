@@ -61,7 +61,7 @@ function View() {
         </Button>
       </div>
       <div>
-        <label htmlFor="url-name">Name</label>
+        <label htmlFor="url-name" style={{ color: "white" }}>Name:</label>
         <input
           id="url-name"
           value={url.name}

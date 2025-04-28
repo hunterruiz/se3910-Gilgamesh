@@ -59,13 +59,31 @@ function Login() {
     }
     
     return (
-        <div>
-          <h2>Login</h2>
+        <div style={{
+          minHeight: "100vh",
+          backgroundColor: "#006847",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingTop: "20px",
+          paddingBottom: "20px"
+      }}>
+
+        {/* Login Card */}
+        <div style={{
+                background: "white",
+                padding: "40px",
+                borderRadius: "8px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                width: "100%",
+                maxWidth: "400px"
+            }}>
+          <h2 style={{ color: "black" }}>Login</h2>
           {/* displays the setMessages defined above when they occur */}
           {message && <div className="alert alert-daner">{message}</div>}
           <Form onSubmit = {handleSubmit}>
-          <div>
-            <label htmlFor="userId">UserId</label>
+          <div style={{ backgroundColor: "white" }}>
+            <label htmlFor="userId">UserId:</label>
             <input
               type = "text"
               placeholder="Username"
@@ -74,8 +92,8 @@ function Login() {
               onChange={handleUserId} required>
             </input>
           </div>
-          <div>
-            <label htmlFor="accountPassword">Password</label>
+          <div style={{ backgroundColor: "white" }}>
+            <label htmlFor="accountPassword">Password:</label>
             <input
               type = "password"
               placeholder="Enter Password"
@@ -88,7 +106,11 @@ function Login() {
                 Login
             </Button>      
           </Form> 
-          <a href="/signUp">Sign up</a>
+
+            <div style={{ backgroundColor: "white" }}>
+              <a href="/signUp">Sign up</a>
+            </div>
+          </div>
         </div>
       );
  
